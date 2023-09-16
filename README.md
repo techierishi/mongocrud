@@ -22,8 +22,14 @@ Next, change the current directory to the repository:
 cd mognocrud
 ```
 
+
 ```sh
-docker run -p 8060:8060 --name monogcrud ghcr.io/techierishi/mongocrud:latest
+docker network create crudNetwork
+docker run --name mongodb -d -p 27017:27017 mongo
+docker network connect crudNetwork mongodb
+docker run -d -p 8060:8060 -e DBPATH="mongodb://mongodb:27017" --name mongocrud ghcr.io/techierishi/mongocrud:latest
+docker network connect crudNetwork mongocrud
+
 ```
 
 ## Endpoints:

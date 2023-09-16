@@ -37,12 +37,8 @@ func (s Server) GetUser(ctx *gin.Context) {
 }
 
 func (s Server) GetUsers(ctx *gin.Context) {
-	email := ctx.Param("email")
-	if email == "" {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "invalid argument email"})
-		return
-	}
-	user, err := s.repository.GetUser(ctx, email)
+
+	users, err := s.repository.GetUsers(ctx)
 	if err != nil {
 		if errors.Is(err, repository.ErrUserNotFound) {
 			ctx.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
@@ -51,7 +47,7 @@ func (s Server) GetUsers(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"user": user})
+	ctx.JSON(http.StatusOK, gin.H{"users": users})
 }
 
 func (s Server) CreateUser(ctx *gin.Context) {

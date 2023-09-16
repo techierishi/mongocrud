@@ -12,9 +12,14 @@ import (
 	"github.com/techierishi/mongocrud/repository"
 )
 
+var (
+	DbPath  = getEnv("DBPATH", "mongodb://127.0.0.1:27017")
+	SvcPort = getEnv("SVCPORT", "8060")
+)
+
 func main() {
 	// create a database connection
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://127.0.0.1:27017"))
+	client, err := mongo.NewClient(options.Client().ApplyURI(DbPath))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -33,11 +38,11 @@ func main() {
 
 	{
 		router.GET("/users/:email", server.GetUser)
-		router.GET("/users", server.CreateUser)
+		router.GET("/users", server.GetUsers)
 		router.POST("/users", server.CreateUser)
 		router.PUT("/users/:email", server.UpdateUser)
 		router.DELETE("/users/:email", server.DeleteUser)
 	}
 	// start the router
-	router.Run(":8060")
+	router.Run(":" + SvcPort)
 }
