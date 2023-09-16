@@ -23,7 +23,7 @@ cd mognocrud
 ```
 
 ```sh
-docker run -p 7070:7070 --name mongocrud ghcr.io/techierishi/mongocrud:latest
+docker run -p 8060:8060 --name monogcrud ghcr.io/techierishi/mongocrud:latest
 ```
 
 ## Endpoints:
@@ -37,7 +37,7 @@ DELETE /users/:email
 ### Get User
 Send a `GET` request to `/users/:email`:
 ```sh
-curl -X GET 'http://127.0.0.1:7070/users/ric@gmail.com'
+curl -X GET 'http://127.0.0.1:8060/users/ric@gmail.com'
 ```
 Response:
 ```sh
@@ -53,7 +53,7 @@ Response:
 ### Create User
 Send a `POST` request to `/users`:
 ```sh
-curl -X POST 'http://127.0.0.1:7070/users' -H "Content-Type: application/json" -d '{"name": "Ric", "email": "ric@gmail.com", "password": "oldpass"}'
+curl -X POST 'http://127.0.0.1:8060/users' -H "Content-Type: application/json" -d '{"name": "Ric", "email": "ric@gmail.com", "password": "oldpass"}'
 ```
 Response:  
 ```sh
@@ -69,7 +69,7 @@ Response:
 ### Update User
 Send a `PUT` request to `/users/:email`:
 ```sh
-curl -X PUT 'http://127.0.0.1:7070/users/ric@gmail.com' -H "Content-Type: application/json" -d '{"password": "newpass"}'
+curl -X PUT 'http://127.0.0.1:8060/users/ric@gmail.com' -H "Content-Type: application/json" -d '{"password": "newpass"}'
 ```
 Response:
 ```sh
@@ -86,7 +86,7 @@ Response:
 ### Delete User
 Send a `DELETE` request to `/users/:email`:
 ```sh
-curl -X DELETE 'http://127.0.0.1:7070/users/ric@gmail.com'
+curl -X DELETE 'http://127.0.0.1:8060/users/ric@gmail.com'
 ```
 Response:
 ```sh

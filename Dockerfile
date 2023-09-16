@@ -18,6 +18,6 @@ USER root
 RUN mkdir -p /data/db/
 RUN chown root /data/db
 
-EXPOSE 7070
+EXPOSE 8060
 
 CMD mongod --fork --logpath /var/log/mongodb.log && ./mongocrud

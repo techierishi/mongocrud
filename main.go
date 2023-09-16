@@ -30,13 +30,14 @@ func main() {
 
 	// create a gin router
 	router := gin.Default()
+
 	{
 		router.GET("/users/:email", server.GetUser)
+		router.GET("/users", server.CreateUser)
 		router.POST("/users", server.CreateUser)
 		router.PUT("/users/:email", server.UpdateUser)
 		router.DELETE("/users/:email", server.DeleteUser)
 	}
-
 	// start the router
-	router.Run(":7070")
+	router.Run(":8060")
 }

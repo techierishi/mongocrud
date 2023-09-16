@@ -38,6 +38,32 @@ func (r repository) GetUser(ctx context.Context, email string) (model.User, erro
 	return toModel(out), nil
 }
 
+func (r repository) GetUsers(ctx context.Context) ([]model.User, error) {
+	cur, err := r.db.
+		Collection("users").
+		Find(ctx, bson.D{})
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return []model.User{}, ErrUserNotFound
+		}
+		return []model.User{}, err
+	}
+
+	var users []model.User
+
+	for cur.Next(context.TODO()) {
+		var elem user
+		err := cur.Decode(&elem)
+		if err != nil {
+			return []model.User{}, err
+		}
+
+		users = append(users, toModel(elem))
+
+	}
+	return users, nil
+}
+
 func (r repository) CreateUser(ctx context.Context, user model.User) (model.User, error) {
 	out, err := r.db.
 		Collection("users").

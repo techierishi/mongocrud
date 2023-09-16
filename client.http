@@ -1,0 +1,14 @@
+
+
+POST http://localhost:8060/users HTTP/1.1
+content-type: application/json
+
+{
+    "id": "1",
+    "name": "Ric",
+    "email": "ric@gmail.com",
+    "password": "oldpass"
+}
+
+###
+GET http://localhost:8060/users HTTP/1.1
